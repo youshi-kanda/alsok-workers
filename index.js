@@ -489,7 +489,12 @@ export default {
         return successResponse({
           message: 'ALSOK Interview System API is working',
           timestamp: new Date().toISOString(),
-          gas_connection: env.GAS_WEBAPP_URL ? 'ready' : 'not_configured'
+          gas_connection: env.GAS_WEBAPP_URL ? 'ready' : 'not_configured',
+          debug_env: {
+            GAS_WEBAPP_URL: env.GAS_WEBAPP_URL ? 'SET' : 'UNDEFINED',
+            GAS_AUTH_TOKEN: env.GAS_AUTH_TOKEN ? 'SET' : 'UNDEFINED',
+            ALLOWED_ORIGIN: env.ALLOWED_ORIGIN || 'UNDEFINED'
+          }
         }, corsHeadersForResponse);
       }
       
