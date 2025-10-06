@@ -39,7 +39,7 @@ function handleCORS(request, env) {
 
 // GAS APIコール
 async function callGAS(endpoint, method = 'GET', data = null, env) {
-  const url = `${env.GAS_WEBAPP_URL}${endpoint}`;
+  let url = `${env.GAS_WEBAPP_URL}${endpoint}`;
   const options = {
     method,
     headers: { 'Content-Type': 'application/json' }
