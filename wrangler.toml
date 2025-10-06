@@ -1,0 +1,23 @@
+name = "alsok-interview-system"
+main = "index.js"
+compatibility_date = "2023-12-01"
+node_compat = true
+
+# 環境変数（本番環境では wrangler secret put で設定）
+[vars]
+DEFAULT_TZ = "Asia/Tokyo"
+
+# 本番環境の環境変数設定例
+# wrangler secret put GAS_WEBAPP_URL
+# wrangler secret put GAS_AUTH_TOKEN  
+# wrangler secret put TWILIO_ACCOUNT_SID
+# wrangler secret put TWILIO_AUTH_TOKEN
+# wrangler secret put TWILIO_MESSAGING_SERVICE_SID
+# wrangler secret put ALLOWED_ORIGIN
+# wrangler secret put TEST_CALENDAR_ID
+# wrangler secret put INTERVIEWER_EMAIL
+
+# カスタムドメイン設定例
+# [[routes]]
+# pattern = "api.alsok-interview.com/*"
+# zone_name = "alsok-interview.com"

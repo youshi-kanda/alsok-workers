@@ -1,0 +1,18 @@
+{
+  "name": "alsok-interview-system-workers",
+  "version": "1.0.0",
+  "description": "ALSOK Interview System - Cloudflare Workers API Gateway",
+  "main": "index.js",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "tail": "wrangler tail",
+    "test": "wrangler dev --test-mode"
+  },
+  "keywords": ["cloudflare-workers", "api-gateway", "alsok", "interview"],
+  "author": "ALSOK Team",
+  "license": "MIT",
+  "devDependencies": {
+    "wrangler": "^3.0.0"
+  }
+}
