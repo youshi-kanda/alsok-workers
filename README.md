@@ -80,4 +80,4 @@ npm run deploy
 
 ## 🎉 デプロイ成功確認
 
-GitHub Actions が正常完了すると、ALSOK面接システムのバックエンドが稼働開始します！
+GitHub Actions が正常完了すると、ALSOK面接システムのバックエンドが稼働開始します！# Deployment trigger
