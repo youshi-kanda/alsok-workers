@@ -28,7 +28,13 @@ jobs:
 
       - name: Deploy to Cloudflare Workers
         run: |
-          npx wrangler deploy
+          npx wrangler deploy \
+            --var GAS_WEBAPP_URL:"$GAS_WEBAPP_URL" \
+            --var GAS_AUTH_TOKEN:"$GAS_AUTH_TOKEN" \
+            --var TWILIO_ACCOUNT_SID:"$TWILIO_ACCOUNT_SID" \
+            --var TWILIO_AUTH_TOKEN:"$TWILIO_AUTH_TOKEN" \
+            --var TWILIO_MESSAGING_SERVICE_SID:"$TWILIO_MESSAGING_SERVICE_SID" \
+            --var ALLOWED_ORIGIN:"$ALLOWED_ORIGIN"
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
