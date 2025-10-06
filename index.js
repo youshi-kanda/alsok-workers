@@ -1,7 +1,7 @@
 // ALSOK 面接システム - Cloudflare Workers
 // 仕様書 v1.0 準拠
 
-import { createHash, createHmac } from 'crypto';
+import { createHash, createHmac } from 'node:crypto';
 
 // CORS設定
 const corsHeaders = {
