@@ -82,3 +82,4 @@ npm run deploy
 
 GitHub Actions が正常完了すると、ALSOK面接システムのバックエンドが稼働開始します！# Deployment trigger
 # Force redeploy with updated secrets
+# Update GAS connection #午後
