@@ -515,3 +515,68 @@ async function handleDecisions(request, env, corsHeaders) {
   
   return successResponse({ updated: true }, corsHeaders);
 }
+
+// ====================
+// メインエントリーポイント
+// ====================
+
+export default {
+  async fetch(request, env, ctx) {
+    const url = new URL(request.url);
+    const corsHeadersForResponse = handleCORS(request, env);
+    
+    // CORS preflight
+    if (request.method === 'OPTIONS') {
+      return new Response(null, { status: 200, headers: corsHeadersForResponse });
+    }
+    
+    // ルーティング
+    try {
+      // Test endpoint
+      if (url.pathname === '/api/test') {
+        return successResponse({
+          message: 'ALSOK Interview System API is working',
+          timestamp: new Date().toISOString(),
+          gas_connection: env.GAS_WEBAPP_URL ? 'ready' : 'not_configured'
+        }, corsHeadersForResponse);
+      }
+      
+      // Applications endpoint
+      if (url.pathname === '/api/applications' && request.method === 'POST') {
+        return await handleApplications(request, env, corsHeadersForResponse);
+      }
+      
+      // SMS sending endpoint
+      if (url.pathname === '/api/sms/send' && request.method === 'POST') {
+        return await handleSendSMS(request, env, corsHeadersForResponse);
+      }
+      
+      // Second interview scheduling
+      if (url.pathname === '/api/second/next-slot' && request.method === 'POST') {
+        return await handleNextSlot(request, env, corsHeadersForResponse);
+      }
+      
+      // Twilio inbound SMS webhook
+      if (url.pathname === '/twilio/inbound-sms' && request.method === 'POST') {
+        return await handleInboundSMS(request, env, corsHeadersForResponse);
+      }
+      
+      // Interviewers list
+      if (url.pathname === '/api/interviewers' && request.method === 'GET') {
+        return await handleInterviewers(request, env, corsHeadersForResponse);
+      }
+      
+      // Decision recording
+      if (url.pathname === '/api/decisions' && request.method === 'POST') {
+        return await handleDecisions(request, env, corsHeadersForResponse);
+      }
+      
+      // 404 for unknown routes
+      return errorResponse('Not Found', 404, corsHeadersForResponse);
+      
+    } catch (error) {
+      console.error('Worker error:', error);
+      return errorResponse('Internal Server Error: ' + error.message, 500, corsHeadersForResponse);
+    }
+  }
+};
