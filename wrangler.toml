@@ -3,21 +3,36 @@ main = "index.js"
 compatibility_date = "2023-12-01"
 node_compat = true
 
-# 環境変数（本番環境では wrangler secret put で設定）
+# デフォルト環境変数
 [vars]
 DEFAULT_TZ = "Asia/Tokyo"
 
-# 本番環境の環境変数設定例
-# wrangler secret put GAS_WEBAPP_URL
-# wrangler secret put GAS_AUTH_TOKEN  
-# wrangler secret put TWILIO_ACCOUNT_SID
-# wrangler secret put TWILIO_AUTH_TOKEN
-# wrangler secret put TWILIO_MESSAGING_SERVICE_SID
-# wrangler secret put ALLOWED_ORIGIN
-# wrangler secret put TEST_CALENDAR_ID
-# wrangler secret put INTERVIEWER_EMAIL
+# 本番環境設定
+[env.production]
+name = "alsok-interview-system"
+vars = { DEFAULT_TZ = "Asia/Tokyo" }
+
+# プレビュー環境設定（PR用）
+[env.preview]
+name = "alsok-interview-system-preview"
+vars = { DEFAULT_TZ = "Asia/Tokyo" }
+
+# 開発環境設定
+[env.dev]
+name = "alsok-interview-system-dev"
+vars = { DEFAULT_TZ = "Asia/Tokyo", DEBUG_MODE = "true" }
 
 # カスタムドメイン設定例
 # [[routes]]
 # pattern = "api.alsok-interview.com/*"
 # zone_name = "alsok-interview.com"
+
+# 本番環境の環境変数はGitHub Secretsで管理:
+# - CLOUDFLARE_API_TOKEN
+# - CLOUDFLARE_ACCOUNT_ID
+# - GAS_WEBAPP_URL
+# - GAS_AUTH_TOKEN  
+# - TWILIO_ACCOUNT_SID
+# - TWILIO_AUTH_TOKEN
+# - TWILIO_MESSAGING_SERVICE_SID
+# - ALLOWED_ORIGIN
