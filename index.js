@@ -138,54 +138,6 @@ function generateULID() {
   return timestamp.toString(36) + Array.from(randomness).map(b => b.toString(36)).join('').substr(0, 16);
 }
 
-// メインハンドラー
-export default {
-  async fetch(request, env, ctx) {
-    const url = new URL(request.url);
-    const corsHeadersForResponse = handleCORS(request, env);
-    
-    if (request.method === 'OPTIONS') {
-      return new Response(null, { status: 200, headers: corsHeadersForResponse });
-    }
-    
-    try {
-      // ルーティング
-      if (url.pathname === '/api/applications' && request.method === 'POST') {
-        return await handleApplications(request, env, corsHeadersForResponse);
-      }
-      
-      if (url.pathname === '/api/second/next-slot' && request.method === 'POST') {
-        return await handleNextSlot(request, env, corsHeadersForResponse);
-      }
-      
-      if (url.pathname === '/api/sms/send' && request.method === 'POST') {
-        return await handleSMSSend(request, env, corsHeadersForResponse);
-      }
-      
-      if (url.pathname === '/twilio/inbound-sms' && request.method === 'POST') {
-        return await handleTwilioInbound(request, env, corsHeadersForResponse);
-      }
-      
-      if (url.pathname === '/api/interviewers' && request.method === 'GET') {
-        return await handleGetInterviewers(request, env, corsHeadersForResponse);
-      }
-      
-      if (url.pathname === '/api/interviewers' && request.method === 'POST') {
-        return await handlePostInterviewers(request, env, corsHeadersForResponse);
-      }
-      
-      if (url.pathname === '/api/decisions' && request.method === 'POST') {
-        return await handleDecisions(request, env, corsHeadersForResponse);
-      }
-      
-      return errorResponse('Not Found', 404, corsHeadersForResponse);
-      
-    } catch (error) {
-      console.error('Worker error:', error);
-      return errorResponse(error.message, 500, corsHeadersForResponse);
-    }
-  }
-};
 
 // 応募受付
 async function handleApplications(request, env, corsHeaders) {
